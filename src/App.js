@@ -1,25 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      text: "",
+      todos: [],
+      isClicked: false,
+    };
+  }
+
+  handleChange = (event) => {
+    this.setState({
+     text:event.target.value ,
+  })
+    console.log(event.target.value)
+  };
+ 
+  handleClick = () => {
+    this.setState({
+    todos: (this.state.text)
+    })
+  };
+
+ // handleClick = () => {
+   // this.setState({
+     // isClicked: !this.state.isClicked,
+   // })
+ // };
+
+
+  componentDidUpdate() {
+    
+    console.log(this.state.text)
+  };
+
+  componentDidMount() {
+    console.log("Mount")
+  };
+
+  render() {
+    return (
+      <div className= "App">
+        <button onClick={this.handleClick }>Add todos</button> 
+        <input onChange={this.handleChange}  type= 'text' value={this.state.text}></input>
+        </div>
+    );
+  }
+
 }
 
 export default App;
