@@ -8,28 +8,28 @@ class App extends React.Component {
     this.state = {
       text: "",
       todos: [],
-      isClicked: false,
+      isClicked: true,
     };
   }
-
+  
+   handleClick = () => {
+     this.state.isClicked ?
+      this.setState({isClicked : false}):
+        this.setState({isClicked : true})
+      };
+     
   handleChange = (event) => {
     this.setState({
      text:event.target.value ,
   })
     console.log(event.target.value)
   };
- 
-  handleClick = () => {
-    this.setState({
-    todos: (this.state.text)
-    })
-  };
 
- // handleClick = () => {
-   // this.setState({
-     // isClicked: !this.state.isClicked,
-   // })
- // };
+handleSubmit = (event) => {
+  event.preventDefault()
+    this.setState({todos : [...this.state.todos, this.state.text]})
+    this.setState({text : ""})
+}
 
 
   componentDidUpdate() {
@@ -44,9 +44,23 @@ class App extends React.Component {
   render() {
     return (
       <div className= "App">
-        <button onClick={this.handleClick }>Add todos</button> 
+       <form onSubmit={this.handleSubmit}>
+        
         <input onChange={this.handleChange}  type= 'text' value={this.state.text}></input>
-        </div>
+        <button onClick={this.handleClick }>Add todos</button> 
+
+       </form>
+       
+       
+       <ul>
+      
+         {this.state.todos.map((todo, index) => {
+           return <li key={index}>{todo}</li>
+         })}
+
+       </ul>
+        
+      </div>
     );
   }
 
